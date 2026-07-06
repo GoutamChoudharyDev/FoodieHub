@@ -4,7 +4,7 @@ import { accessRefreshToken, userLogin, userLogout, userRegister } from "../cont
 // inizialize router
 const router = Router();
 
-// auth api's
+// auth api's (public)
 router.post("/register", userRegister);
 router.post("/login", userLogin);
 router.get("/refresh-token", accessRefreshToken);
