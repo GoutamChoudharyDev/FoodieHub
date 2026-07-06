@@ -1,4 +1,7 @@
 import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import userRouter from "./routes/user.route.js";
 
 // app initialize
 const app = express();
@@ -9,11 +12,15 @@ app.get("/", (req, res) => {
 })
 
 // middlewares
-
-
+app.use(cors({
+    origin: "*",
+    credentials: true
+}));
+app.use(express.json());
+app.use(cookieParser());
 
 // routes
-
+app.use("/api/auth", userRouter);
 
 
 // exports
