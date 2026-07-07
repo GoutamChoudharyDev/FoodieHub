@@ -102,9 +102,74 @@ const getSingleFood = async (req, res) => {
     }
 }
 
+// update food (private)
+const updateFood = async (req, res) => {
+    try {
+        // get food id and updated data from req.params
+        const { id } = req.params;
+        const updateData = req.body;
+
+        const updatedFood = await Food.findByIdAndUpdate(
+            id,
+            updateData,
+            {
+                new: true,
+                runValidators: true,
+            }
+        );
+
+        if (!updatedFood) {
+            return res.status(404).json({
+                message: "Food not found"
+            })
+        }
+
+        return res.status(200).json({
+            message: "Food updated successfully",
+            updatedFood
+        })
+    } catch (error) {
+        console.error("Internal server error during food updation: ", error);
+        return res.status(500).json({
+            message: "Internal server error during food updation"
+        })
+    }
+}
+
+// deleteFood (private)
+const deleteFood = async (req, res) => {
+    try {
+        // get id from req.params
+        const { id } = req.params;
+
+        // find food and delete
+        const food = await Food.findByIdAndDelete(id);
+
+        // check food
+        if (!food) {
+            return res.status(404).json({
+                message: "Food is not found"
+            })
+        }
+
+        // return response
+        return res.status(200).json({
+            message: "Food deleted successfully",
+            food
+        })
+    } catch (error) {
+        console.error("Internal server error during food deletion: ", error);
+        return res.status(500).json({
+            message: "Internal server error during food deletion"
+        })
+    }
+}
+
 // export
 export {
     addFood,
     getAllFood,
-    getSingleFood
+    getSingleFood,
+    updateFood,
+    deleteFood
 }
