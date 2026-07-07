@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 const userRegister = async (req, res) => {
     try {
         // get data from frontend(req.body)
-        const { fullName, email, password } = req.body;
+        const { fullName, email, password, role } = req.body;
 
         // validation 
         if (!fullName?.trim() || !email?.trim() || !password) {
@@ -40,7 +40,8 @@ const userRegister = async (req, res) => {
         const user = await User.create({
             fullName,
             email,
-            password: hashedPassword
+            password: hashedPassword,
+            role
         })
 
         // response
@@ -199,6 +200,5 @@ export {
     accessRefreshToken,
     userLogout
 }
-
 
 //Note: global error handler

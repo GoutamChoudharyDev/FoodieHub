@@ -63,5 +63,6 @@ const isAdmin = (req, res, next) => {
 
 // export
 export {
-    isAuth
+    isAuth,
+    isAdmin
 }
