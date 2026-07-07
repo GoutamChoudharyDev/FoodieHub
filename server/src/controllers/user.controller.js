@@ -193,12 +193,39 @@ const userLogout = (req, res) => {
     }
 }
 
+// get user controller
+const getMe = async (req, res) => {
+    try {
+        // get id from req.user
+        const userId = req.user.id;
+
+        const user = await User.findById(userId).select("-password");
+
+        if (!user) {
+            return res.status(404).json({
+                message: "user not found"
+            })
+        }
+
+        return res.status(200).json({
+            message: "user fetched successfully",
+            user
+        })
+    } catch (error) {
+        console.error("Internal server error during fetching user: ", error);
+        return res.status(500).json({
+            message: "Internal server error during fetching user"
+        })
+    }
+}
+
 // exports contollers
 export {
     userRegister,
     userLogin,
     accessRefreshToken,
-    userLogout
+    userLogout,
+    getMe
 }
 
 //Note: global error handler
