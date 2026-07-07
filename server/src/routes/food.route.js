@@ -6,13 +6,13 @@ import { addFood, deleteFood, getAllFood, getSingleFood, updateFood } from "../c
 const router = Router();
 
 // food api's (Private)
-router.post("/add", isAuth, isAdmin, addFood);
+router.post("/", isAuth, isAdmin, addFood);
 
 // food api's (Public)
-router.get("/get-all", isAuth, getAllFood);
+router.get("/", getAllFood);
 
 // single food (Public)
-router.get("/:id", isAuth, getSingleFood);
+router.get("/:id", getSingleFood);
 
 // update food (Private)
 router.put("/:id", isAuth, isAdmin, updateFood);
